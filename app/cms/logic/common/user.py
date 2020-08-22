@@ -120,7 +120,7 @@ class UserOut(UserUpdate):
                           title="用户名",
                           description="用户名不可为空, 具备唯一性, 字符长度范围6~40",
                           max_length=40,
-                          min_length=6)
+                          min_length=3)
     role: RoleOut = Field(None, title="角色信息")
 
 
@@ -190,7 +190,7 @@ def init_super_user():
         User.create(**{
             "username": FIRST_USER,
             "nickname": 'admin',
-            "email": FIRST_USER,
+            "email": f"{FIRST_USER}@163.com",
             "password": get_password_hash(FIRST_USER_PASSWORD),
             "is_superuser": True,
             "is_active": True
