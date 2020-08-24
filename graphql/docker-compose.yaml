@@ -1,12 +1,36 @@
 version: '3.6'
 services:
+  postgres:
+    image: timescale/timescaledb:latest-pg11
+    restart: always
+    ports:
+        - "5432:5432"
+    volumes:
+        - db_data:/D/data/pg
+    environment:
+        POSTGRES_PASSWORD: 123456
+  pgadmin4:
+      image: dpage/pgadmin4
+      ports:
+          - 8001:80
+      environment:
+          PGADMIN_DEFAULT_EMAIL: kpages@163.com
+          PGADMIN_DEFAULT_PASSWORD: 123456
   graphql-engine-qor:
     image: hasura/graphql-engine:v1.3.0
     ports:
-    - "8088:8080"
+        - "8080:8080"
+    depends_on:
+        - "postgres"
+    restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:123456@192.168.111.147:5432/qor
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:123456@postgres:5432/qordb
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: "/srv/console-assets"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
-      ## HASURA_GRAPHQL_ADMIN_SECRET: admin
+      ## uncomment next line to set an admin secret
+      HASURA_GRAPHQL_ADMIN_SECRET: "123456"
+volumes:
+  db_data:      HASURA_GRAPHQL_JWT_SECRET: '{"type": "HS256", "key": "kpages,kpages,kpages,kpages,kpages,kpages,kpages,kpages,kpages,kpages", "chainm_format": "stringified_json", "claims_namespace":"hasura"}'
+
+

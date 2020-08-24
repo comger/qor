@@ -27,7 +27,7 @@ LOG_MAX_BYTES = int(os.getenv("LOG_MAX_BYTES", 1024 * 1024 * 100))
 LOG_MAX_NUM = int(os.getenv("LOG_MAX_NUM", 8))
 
 ALGORITHM = os.getenv("ALGORITHM", 'HS256')
-SECRET_KEY = os.getenv("SECRET_KEY", "smartbow")
+SECRET_KEY = os.getenv("SECRET_KEY", "kpages,kpages,kpages,kpages,kpages,kpages,kpages,kpages,kpages,kpages")
 
 # 60 minutes * 24 hours * 8 days = 8 days
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 8
